@@ -1,0 +1,30 @@
+.loginTittle{
+    text-align: center;
+}
+
+.cardBody{
+   width: 18rem;
+   height: 32rem;
+   position: absolute;
+   top: 90px;
+   left: 600px;
+}
+
+img{
+
+    position: relative;
+    top: -30px;
+    left: 20px;
+}
+
+.subtitle{
+    text-align: center;
+    position: relative;
+    top: -40px;
+}
+
+.submit{
+    position: relative;
+    top: 25px;
+    left: 90px;
+}

@@ -1,0 +1,16 @@
+.postImg{
+    width: "599px";
+    height: "250px";
+    border-radius: "0px"; 
+}
+
+.scanerImg
+{
+    width: "300px";
+    height: "250px";
+    border-radius: "0px";
+}
+
+.Button{
+    margin-left: 20px;
+}
