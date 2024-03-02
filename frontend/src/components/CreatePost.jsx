@@ -11,8 +11,9 @@ function CreatePost() {
     event.preventDefault();
     const title = event.target.title.value;
     const description = event.target.description.value;
+    const branch = event.target.branch.value;
 
-    axios.post('http://localhost:3000/posts', { title, description })
+    axios.post('http://localhost:3000/posts', { title, description, branch })
       .then((response) => {
         console.log(response);
         setPostId(response.data.id);
@@ -68,13 +69,17 @@ function CreatePost() {
           <Input id="description" placeholder="Write your description" name="description" type="textarea" />
         </FormGroup>
         <FormGroup>
+          <Label for="branch">Branch</Label>
+          <Input id="branch" placeholder="branch" name="branch" type="input" />
+        </FormGroup>
+        <FormGroup>
           <Label for="eventImage">Upload Event Image</Label>
           <Input id="eventImage" name="eventImage" type="file" />
           <Label for="qrImage">Upload QR Image</Label>
           <Input id="qrImage" name="qrImage" type="file" />
         </FormGroup>
         <Button color="success" type="submit">Submit</Button>
-        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/')} type="submit">Home</Button>
+        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/Home')} type="submit">Home</Button>
       </Form>
     </>
   );

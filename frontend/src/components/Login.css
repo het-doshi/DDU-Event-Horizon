@@ -1,20 +1,24 @@
 .loginTittle{
     text-align: center;
+    position: relative;
+    top: 35px;
+    z-index: 100;
 }
 
 .cardBody{
-   width: 18rem;
-   height: 32rem;
+   width: 36rem;
+   height: 36rem;
    position: absolute;
-   top: 90px;
-   left: 600px;
+   top: 60px;
+   left: 460px;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 img{
 
     position: relative;
     top: -30px;
-    left: 20px;
+    left: 170px;
 }
 
 .subtitle{
@@ -26,5 +30,8 @@ img{
 .submit{
     position: relative;
     top: 25px;
-    left: 90px;
+    left: 170px;
+    margin-right: 20px;
+    width: 90px;
+    height: 40px;
 }

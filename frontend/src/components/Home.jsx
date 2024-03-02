@@ -25,12 +25,18 @@ function Home() {
       });
   },); 
 
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name');
+
   return (
     <div className="home-container">
      < Header/>
-      <Button color="success" onClick={() => navigate('/CreatePost')} className='createpost'>
-        Create Post
-      </Button>
+      <Button color="success" onClick={() => navigate('/CreatePost')} className='createpost'>Create Post</Button>
+      <Button className="logoutBtn" color="danger" onClick={() => navigate('/')}>Logout</Button>
+      <div className='userinfo'>
+       <h3>welcome {name} !</h3>
+      </div>
+      <br />
       {posts.map((post) => (
         <Post
           key ={post.id}
@@ -42,6 +48,8 @@ function Home() {
           qrImage={post.qrImage}
         />
       ))}
+      <br />
+      <br />
     </div>
   );
 }

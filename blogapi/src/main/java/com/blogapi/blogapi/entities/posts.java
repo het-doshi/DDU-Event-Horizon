@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity
 public class posts {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name="your_entity_seq", initialValue=1, allocationSize=1)
@@ -14,17 +13,19 @@ public class posts {
     private  String description;
     private String eventImage;
     private  String qrImage;
+    private  String branch;
 
     public posts() {
         super();
     }
 
-    public posts(long id, String title, String description,String eventImage,String qrImage) {
+    public posts(long id, String title, String description,String eventImage,String qrImage, String branch) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.eventImage = eventImage;
         this.qrImage = qrImage;
+        this.branch = branch;
     }
 
     public long getId() {
@@ -67,8 +68,16 @@ public class posts {
         this.qrImage = qrImage;
     }
 
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
     @Override
     public String toString() {
-        return "post [id = "+id+",  title = "+title+",  description = "+description+",  eventImage = "+eventImage+" ,  qrImage = "+qrImage+"]";
+        return "post [id = "+id+",  title = "+title+",  description = "+description+",  eventImage = "+eventImage+" ,  qrImage = "+qrImage+", branch = "+branch+" ]";
     }
 }

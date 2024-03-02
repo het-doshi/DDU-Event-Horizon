@@ -14,9 +14,10 @@ function UpdatePost(props) {
     event.preventDefault();
     const title = event.target.title.value;
     const description = event.target.description.value;
+    const branch = event.target.branch.value;
 
     try {
-      const response = await axios.put(`http://localhost:3000/posts/${id}`, { title, description });
+      const response = await axios.put(`http://localhost:3000/posts/${id}`, { title, description, branch  });
       console.log(response);
       await uploadImages(id, event.target.eventImage.files[0], event.target.qrImage.files[0]);
     } catch (error) {
@@ -62,13 +63,17 @@ function UpdatePost(props) {
           <Input id="description" placeholder="Write your description" name="description" type="textarea" />
         </FormGroup>
         <FormGroup>
+          <Label for="branch">Branch</Label>
+          <Input id="branch" placeholder="branch" name="branch" type="input" />
+        </FormGroup>
+        <FormGroup>
           <Label for="eventImage">Upload Event Image</Label>
           <Input id="eventImage" name="eventImage" type="file" />
           <Label for="qrImage">Upload QR Image</Label>
           <Input id="qrImage" name="qrImage" type="file" />
         </FormGroup>
         <Button color="success" type="submit">Update</Button>
-        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/')} type="button">Home</Button>
+        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/Home')} type="button">Home</Button>
       </Form>
     </>
   );

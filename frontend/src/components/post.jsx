@@ -65,6 +65,7 @@ function Post(props) {
         </Card>
       </CardColumns>
     </div>
+    
   );
 }
 export default Post;

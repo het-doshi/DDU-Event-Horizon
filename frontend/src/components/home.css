@@ -3,3 +3,15 @@
     top: 100px;
     left: 20px;
 }
+
+.userinfo{
+    position: absolute;
+    top: 80px;
+    right: 50px;
+}
+
+.logoutBtn{
+    position: absolute;
+    top: 120px;
+    right: 100px;
+}

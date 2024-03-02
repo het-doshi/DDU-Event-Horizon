@@ -6,9 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -53,6 +51,7 @@ private PostDao postDao;
             // Update the existing post with the new data
             existingPost.setDescription(posts.getDescription());
             existingPost.setTitle(posts.getTitle());
+            existingPost.setBranch(posts.getBranch());
 
             // Save the updated post
             posts updatedPost = postDao.save(existingPost);
