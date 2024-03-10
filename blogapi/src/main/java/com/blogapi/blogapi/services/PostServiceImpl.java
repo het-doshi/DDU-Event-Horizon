@@ -1,6 +1,7 @@
 package com.blogapi.blogapi.services;
 
 import com.blogapi.blogapi.dao.PostDao;
+import com.blogapi.blogapi.dao.UserDao;
 import com.blogapi.blogapi.entities.posts;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
 private PostDao postDao;
 
+    @Autowired
+    private UserDao userDao;
+
 
 
     public PostServiceImpl()
@@ -23,8 +27,8 @@ private PostDao postDao;
 
 
     @Override
-    public List<posts> getPosts() {
-        return postDao.findAll();
+    public List<posts> getPosts(long userId) {
+        return postDao.findPostsByUserId(userId);
     }
 
     @Override
@@ -33,7 +37,8 @@ private PostDao postDao;
     }
 
     @Override
-    public posts addPost(posts posts) {
+    public posts addPost(posts posts, long userId) {
+        posts.setUsers(userDao.findByUserId(userId));
         postDao.save(posts);
         return posts;
     }
@@ -67,10 +72,22 @@ private PostDao postDao;
     }
 
     @Override
+    @Transactional
     public void deletePostById(long postId) {
-        posts deletePost =  postDao.getOne(postId);
-        postDao.delete(deletePost);
+        postDao.deleteById(postId);
     }
+
+    @Override
+    public List<posts> getPostsByBranch(String branch) {
+        return postDao.findPostsByBranch(branch);
+    }
+
+    @Override
+    public List<posts> getAllPosts() {
+        return postDao.findAll();
+    }
+
+
 }
 
 

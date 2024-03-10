@@ -16,7 +16,8 @@ import {
 
 function Post(props) {
   const navigate = useNavigate();
-  const { id } = props;
+  const{id} = props;
+  
 
   const handleUpdate = () => {
     navigate(`/update/${id}`);
@@ -26,7 +27,7 @@ function Post(props) {
     axios.delete(`http://localhost:3000/posts/${id}`)
       .then(response => {
         toast.success("this post deleted sucessfully")
-        console.log('Post deleted successfully');
+        console.log(`${id}`);
       })
       .catch(error => {
         console.error('Error deleting post:', error);

@@ -1,5 +1,7 @@
 package com.blogapi.blogapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -78,6 +80,22 @@ public class posts {
 
     @Override
     public String toString() {
-        return "post [id = "+id+",  title = "+title+",  description = "+description+",  eventImage = "+eventImage+" ,  qrImage = "+qrImage+", branch = "+branch+" ]";
+        return "post [id = "+id+",  title = "+title+",  description = "+description+",  eventImage = "+eventImage+" ,  qrImage = "+qrImage+", branch = "+branch+", userid = "+users.getId()+"  ]";
+    }
+
+
+    //Relationship with users
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "userid")
+    private users users;
+
+
+    public com.blogapi.blogapi.entities.users getUsers() {
+        return users;
+    }
+
+    public void setUsers(com.blogapi.blogapi.entities.users users) {
+        this.users = users;
     }
 }

@@ -3,12 +3,13 @@ package com.blogapi.blogapi.controller;
 import com.blogapi.blogapi.entities.users;
 import com.blogapi.blogapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static java.lang.Long.parseLong;
 
 @RestController
 public class UserController {
@@ -23,16 +24,37 @@ public class UserController {
     }
 
     //Registration
+
     @PostMapping("/users")
-    public  users addUser(@RequestBody users users){
-        return this.userService.addUser(users);
+    public  ResponseEntity<users> addUser(@RequestBody users users){
+        try{
+              users newuser = userService.addUser(users);
+            if (newuser != null) {
+                return ResponseEntity.ok(newuser);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     //Login
     @PostMapping("/login")
-    public users login(@RequestBody users users)
-    {
-        return this.userService.login(users);
+    public ResponseEntity<users> login(@RequestBody users loginUser) {
+        try {
+            users authenticatedUser = userService.login(loginUser);
+            if (authenticatedUser != null) {
+                return ResponseEntity.ok(authenticatedUser);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
 
 }

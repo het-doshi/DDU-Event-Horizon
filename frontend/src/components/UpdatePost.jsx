@@ -3,18 +3,27 @@ import { Form, Label, Input, FormGroup, Button } from "reactstrap";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import {username, userid} from './Home'
 
 function UpdatePost(props) {
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const {id} = useParams();
+
+  
+    //home
+    const backToHome = () => {
+      window.location.href = `/Home?id=${userid}&name=${username}`;
+    };
 
   const submitHandler = async (event) => {
     event.preventDefault();
     const title = event.target.title.value;
     const description = event.target.description.value;
     const branch = event.target.branch.value;
+
+    if (!title || !description || !branch) {
+      return toast.error("Please fill in all fields");
+    }
 
     try {
       const response = await axios.put(`http://localhost:3000/posts/${id}`, { title, description, branch  });
@@ -44,16 +53,17 @@ function UpdatePost(props) {
       toast.success("Post updated successfully!");
     } catch (error) {
       console.error('Error uploading images:', error);
-      toast.error("Failed to upload images!"); 
+      toast.error("Failed to update post!"); 
     }
   };
 
   return (
     <>
       <ToastContainer />
-      <Form style={{ width: "900px", marginTop: "50px", marginLeft: "280px" }} onSubmit={submitHandler}>
+      <Form style={{ width: "900px", marginTop: "0px", marginLeft: "280px" }} onSubmit={submitHandler}>
+       <br />
         <h1>Update event Details!</h1>
-        <br></br>
+        <br />
         <FormGroup>
           <Label for="title">Title</Label>
           <Input id="title" name="title" placeholder="Enter your title" type="input" />
@@ -73,7 +83,7 @@ function UpdatePost(props) {
           <Input id="qrImage" name="qrImage" type="file" />
         </FormGroup>
         <Button color="success" type="submit">Update</Button>
-        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/Home')} type="button">Home</Button>
+        <Button color="primary" style={{marginLeft:'20px' }} onClick={backToHome} type="button">Home</Button>
       </Form>
     </>
   );

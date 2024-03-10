@@ -25,8 +25,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public users addUser(users users) {
-        userDao.save(users);
-        return users;
+        String enterExistUser = users.getRegisterby();
+        String existUser = userDao.username(enterExistUser);
+        if(existUser.equals(enterExistUser))
+        {
+            userDao.save(users);
+            return users;
+        }
+        return null;
     }
 
 
@@ -40,7 +46,9 @@ public class UserServiceImpl implements UserService {
             if (existingPassword.equals(enteredPassword)) {
                 System.out.println("Login success");
                 String email = userDao.email(enteredUsername);
+                long id = userDao.userid (enteredUsername);
                 users.setEmail(email);
+                users.setId(id);
                 return users;
             } else {
                 System.out.println("Incorrect credentials");

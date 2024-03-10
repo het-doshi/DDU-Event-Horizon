@@ -1,5 +1,9 @@
 package com.blogapi.blogapi.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class users {
@@ -11,17 +15,19 @@ public class users {
     private  String username;
     private  String password;
     private String email;
+    private  String registerby;
 
     public users(){
         super();
     }
 
     //constructor
-    public users(long id, String username, String password, String email) {
+    public users(long id, String username, String password, String email, String registerby) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.registerby = registerby;
     }
 
     // getters and setters
@@ -53,12 +59,34 @@ public class users {
         return email;
     }
 
+    public String getRegisterby() {
+        return registerby;
+    }
+
+    public void setRegisterby(String registerby) {
+        this.registerby = registerby;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
     @Override
     public String toString() {
-        return "users[" + "id =" +id+ ", username = " +username+" , password='" +password+ ", email='" + email + "]";
+        return "users[" + "id =" +id+ ", username = " +username+" , password='" +password+ ", email='" + email + ", registerby='" + registerby +"]";
+    }
+
+
+    //Relationship with posts
+    @JsonManagedReference
+    @OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
+    private List<posts> posts;
+
+    public List<com.blogapi.blogapi.entities.posts> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<com.blogapi.blogapi.entities.posts> posts) {
+        this.posts = posts;
     }
 }

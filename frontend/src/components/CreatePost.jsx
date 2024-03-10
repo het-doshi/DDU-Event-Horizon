@@ -3,63 +3,75 @@ import { Form, Label, Input, FormGroup, Button } from "reactstrap";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function CreatePost() {
-  const navigate = useNavigate();
-  const submitHandler = (event) => {
+  const { id, name } = useParams();
+  
+  //home
+  const backToHome = () => {
+    window.location.href = `/Home?name=${name}&id=${id}`;
+  };
+
+  const submitHandler = async (event) => {
     event.preventDefault();
     const title = event.target.title.value;
     const description = event.target.description.value;
     const branch = event.target.branch.value;
 
-    axios.post('http://localhost:3000/posts', { title, description, branch })
-      .then((response) => {
-        console.log(response);
-        setPostId(response.data.id);
-        uploadImages(response.data.id, event.target.eventImage.files[0], event.target.qrImage.files[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+  
+    if (!title || !description || !branch) {
+        return toast.error("Please fill in all fields");
+    }
+
+
+  
+    try {
+      const response = await axios.post(`http://localhost:3000/posts/${id}`, { title, description, branch });
+      console.log(response);
+      setPostId(response.data.id);
+      await uploadImages(response.data.id, event.target.eventImage.files[0], event.target.qrImage.files[0]);
+      toast.success("Posted successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to post!");
+    }
   };
 
   const [postId, setPostId] = useState(null);
 
-  const uploadImages = (postId, eventImage, qrImage) => {
+  const uploadImages = async (postId, eventImage, qrImage) => {
     const formDataEvent = new FormData();
     formDataEvent.append('postId', postId);
     formDataEvent.append('EventImage', eventImage);
 
-    axios.post('http://localhost:3000/uploadImage/event', formDataEvent)
-      .then((response) => {
-        console.log('Event Image uploaded:', response);
-      })
-      .catch((error) => {
-        console.log('Error uploading Event Image:', error);
-      });
+    try {
+      const responseEvent = await axios.post('http://localhost:3000/uploadImage/event', formDataEvent);
+      console.log('Event Image uploaded:', responseEvent);
+    } catch (error) {
+      console.log('Error uploading Event Image:', error);
+    }
 
     const formDataQR = new FormData();
     formDataQR.append('postId', postId);
     formDataQR.append('qrImage', qrImage);
 
-    axios.post('http://localhost:3000/uploadImage/qr', formDataQR)
-      .then((response) => {
-        console.log('QR Image uploaded:', response);
-        toast.success("posted sucessfuully!")
-      })
-      .catch((error) => {
-        console.log('Error uploading QR Image:', error);
-        toast.error("Failed to upload post!"); 
-      });
+    try {
+      const responseQR = await axios.post('http://localhost:3000/uploadImage/qr', formDataQR);
+      console.log('QR Image uploaded:', responseQR);
+    } catch (error) {
+      console.log('Error uploading QR Image:', error);
+    }
   };
 
   return (
     <>
       <ToastContainer />
-      <Form style={{ width: "900px", marginTop: "50px", marginLeft: "280px" }} onSubmit={submitHandler}>
+      <Form style={{ width: "900px", marginTop: "0px", marginLeft: "280px" }} onSubmit={submitHandler}>
+        <br />
         <h1>Post new event!</h1>
-        <br></br>
+        <br />
         <FormGroup>
           <Label for="title">Title</Label>
           <Input id="title" name="title" placeholder="Enter your title" type="input" />
@@ -78,8 +90,8 @@ function CreatePost() {
           <Label for="qrImage">Upload QR Image</Label>
           <Input id="qrImage" name="qrImage" type="file" />
         </FormGroup>
-        <Button color="success" type="submit">Submit</Button>
-        <Button color="primary" style={{marginLeft:'20px' }} onClick={() => navigate('/Home')} type="submit">Home</Button>
+        <button className="btn btn-success" type="submit">Submit</button>
+        <Button color="primary" style={{marginLeft:'20px' }} onClick={backToHome} type="button">Home</Button>
       </Form>
     </>
   );

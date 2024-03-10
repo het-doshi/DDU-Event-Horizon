@@ -16,25 +16,31 @@ public class PostController {
     @Autowired
    private PostService postService;
 
+
     //get all the posts
     @GetMapping("/posts")
-    public List<posts> getPosts()
-    {
-        return this.postService.getPosts();
+    public List<posts> getAllPosts() {
+        return this.postService.getAllPosts();
     }
 
-    //get the specific post by id
-    @GetMapping("/posts/{postId}")
-    public posts getpostbyid(@PathVariable String postId)
-    {
-        return this.postService.getPostsById(parseLong(postId));
+    //get all the posts for individual user
+    @GetMapping("/posts/users/{userId}")
+    public List<posts> getPosts(@PathVariable String userId) {
+        return this.postService.getPosts(Long.parseLong(userId));
+    }
+
+
+    //get all the posts by branch
+    @GetMapping("/posts/branch/{branch}")
+    public List<posts> getPostsByBranch(@PathVariable String branch) {
+        return this.postService.getPostsByBranch(branch);
     }
 
     //add new post
-    @PostMapping(path = "/posts", consumes = "application/json")
-    public posts addpost(@RequestBody posts posts)
+    @PostMapping(path = "/posts/{userId}")
+    public posts addpost(@RequestBody posts posts, @PathVariable String userId)
     {
-        return this.postService.addPost(posts);
+        return this.postService.addPost(posts, Long.parseLong(userId));
     }
 
 
@@ -50,13 +56,14 @@ public class PostController {
     //Delete post
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<HttpStatus> deletePostById(@PathVariable String postId) {
-        try
-        {
-            this.postService.deletePostById(parseLong(postId));
+        try {
+            this.postService.deletePostById(Long.parseLong(postId));
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+             System.out.println(e);
         }
-        catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return null;
     }
+
+
 }

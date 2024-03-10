@@ -20,24 +20,35 @@ import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
-
-
   const submitHandler = (event) => {
     event.preventDefault();
     const username = event.target.username.value;
     const password = event.target.password.value;
     var name;
-    axios.post('http://localhost:3000/login', { username, password})
+    var id;
+
+    if (!username || !password ) {
+      return toast.error("empty credentials");
+    }
+    else
+    {
+      axios.post('http://localhost:3000/login', { username, password})
       .then((response) => {
         console.log(response);
+        if(response.status !== 200)
+        {
+          return toast.error("invalid credentials");
+        }
         name = response.data.username;
-        window.location.href = `/Home?name=${name}`;
+        id = response.data.id;
+        window.location.href = `/Home?name=${name}&id=${id}`;
         toast.success("Login sucessfuully!")
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Login failed!")
+        toast.error("invalid credentials")
       });
+    }
   };
 
   return (

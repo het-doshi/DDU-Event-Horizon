@@ -6,21 +6,25 @@ import UpdatePost from "./components/UpdatePost"
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
+import Allpost from "./components/Allpost"
+
 
 function App() {
   return (
     <BrowserRouter>
-    <>
+      <div style={{ backgroundColor: '#F7F2EB', minHeight: '100vh' }}>
         <Routes>
-           <Route path="/" element={<Login/>} />
+           <Route path="/" element={<Allpost/>} />
            <Route path="/Login" element={<Login/>} />
            <Route path="/Home" element={<Home/>} />
-           <Route path="/CreatePost" element={<CreatePost/>} />
+           <Route path="/Home/:id/:name" element={<Home/>} />
+           <Route path="/CreatePost/:id/:name" element={<CreatePost/>} />
            <Route path="/Registration" element={<Registration/>} />
            <Route path="/update/:id" element={<UpdatePost />} />
         </Routes>
-    </>
+      </div>
     </BrowserRouter>
   );
 }
+
 export default App;

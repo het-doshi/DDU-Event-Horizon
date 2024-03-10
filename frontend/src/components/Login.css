@@ -1,3 +1,4 @@
+
 .loginTittle{
     text-align: center;
     position: relative;
@@ -12,6 +13,7 @@
    top: 60px;
    left: 460px;
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   
 }
 
 img{
@@ -34,4 +36,14 @@ img{
     margin-right: 20px;
     width: 90px;
     height: 40px;
+}
+
+.stitle{
+    position: relative;
+    top: -60px;
+}
+
+.rform{
+    position: relative;
+    top: -40px;
 }
