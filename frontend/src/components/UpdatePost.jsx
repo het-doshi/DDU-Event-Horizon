@@ -3,16 +3,20 @@ import { Form, Label, Input, FormGroup, Button } from "reactstrap";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useParams } from 'react-router-dom';
-import {username, userid} from './Home'
+import { useNavigate, useLocation  } from 'react-router-dom';
+
 
 function UpdatePost(props) {
-  const {id} = useParams();
+
+  const navigate = useNavigate()
+   const location = useLocation();
+   const id = location.state.postId
+   const responseData = location.state.responseData;
 
   
     //home
     const backToHome = () => {
-      window.location.href = `/Home?id=${userid}&name=${username}`;
+      navigate('/Home', { state: { responseData: responseData } });
     };
 
   const submitHandler = async (event) => {
@@ -20,7 +24,7 @@ function UpdatePost(props) {
     const title = event.target.title.value;
     const description = event.target.description.value;
     const branch = event.target.branch.value;
-
+    
     if (!title || !description || !branch) {
       return toast.error("Please fill in all fields");
     }

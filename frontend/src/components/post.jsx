@@ -1,5 +1,5 @@
 import React from "react";
-import "./post.css";
+import "../styles/post.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,9 +18,10 @@ function Post(props) {
   const navigate = useNavigate();
   const{id} = props;
   
+  const responseData = props.responseData;
 
   const handleUpdate = () => {
-    navigate(`/update/${id}`);
+    navigate('/update', { state: { responseData: responseData, postId : props.id } });
   };
 
   const handleDelete = () => {

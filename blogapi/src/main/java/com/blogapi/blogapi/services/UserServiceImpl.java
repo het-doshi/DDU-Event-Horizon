@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
         String enteredUsername = users.getUsername();
         String enteredPassword = users.getPassword();
         String existingPassword = userDao.password(enteredUsername);
-
         if (existingPassword != null) {
             if (existingPassword.equals(enteredPassword)) {
                 System.out.println("Login success");

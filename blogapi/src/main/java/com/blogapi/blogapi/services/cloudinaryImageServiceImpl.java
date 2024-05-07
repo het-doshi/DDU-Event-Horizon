@@ -20,22 +20,16 @@ public class cloudinaryImageServiceImpl implements cloudinaryImageService {
 
     @Override
     public Map uploadEventImage(Long postId, MultipartFile file) {
-
         try {
             Map data = this.cloudinary.uploader().upload(file.getBytes(), Map.of());
-
             // Extract the image URL from the Cloudinary response
             String EventImage = (String) data.get("url");
-
             // Retrieve the post by ID
             posts post = postDao.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
-
             // Set the image URL for the post
             post.seteventImage(EventImage);
-
             // Save the post to update the image URL
             postDao.save(post);
-
             return data;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -44,22 +38,16 @@ public class cloudinaryImageServiceImpl implements cloudinaryImageService {
 
     @Override
     public Map uploadQrImage(Long postId, MultipartFile file) {
-
         try {
             Map data = this.cloudinary.uploader().upload(file.getBytes(), Map.of());
-
             // Extract the image URL from the Cloudinary response
             String qrImage = (String) data.get("url");
-
             // Retrieve the post by ID
             posts post = postDao.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
-
             // Set the image URL for the post
             post.setQrImage(qrImage);
-
             // Save the post to update the image URL
             postDao.save(post);
-
             return data;
         } catch (IOException e) {
             throw new RuntimeException(e);

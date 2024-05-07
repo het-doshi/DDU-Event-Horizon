@@ -17,10 +17,9 @@ function App() {
            <Route path="/" element={<Allpost/>} />
            <Route path="/Login" element={<Login/>} />
            <Route path="/Home" element={<Home/>} />
-           <Route path="/Home/:id/:name" element={<Home/>} />
-           <Route path="/CreatePost/:id/:name" element={<CreatePost/>} />
+           <Route path="/CreatePost" element={<CreatePost/>} />
            <Route path="/Registration" element={<Registration/>} />
-           <Route path="/update/:id" element={<UpdatePost />} />
+           <Route path="/update" element={<UpdatePost />} />
         </Routes>
       </div>
     </BrowserRouter>

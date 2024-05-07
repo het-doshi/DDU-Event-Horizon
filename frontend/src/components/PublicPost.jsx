@@ -1,5 +1,5 @@
 import React from "react";
-import "./post.css";
+import "../styles/post.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Card,

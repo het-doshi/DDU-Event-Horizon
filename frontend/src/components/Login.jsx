@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-import "./Login.css";
+import "../styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -24,9 +24,7 @@ function Login() {
     event.preventDefault();
     const username = event.target.username.value;
     const password = event.target.password.value;
-    var name;
-    var id;
-
+    
     if (!username || !password ) {
       return toast.error("empty credentials");
     }
@@ -39,9 +37,7 @@ function Login() {
         {
           return toast.error("invalid credentials");
         }
-        name = response.data.username;
-        id = response.data.id;
-        window.location.href = `/Home?name=${name}&id=${id}`;
+        navigate('/Home', { state: { responseData: response.data } });
         toast.success("Login sucessfuully!")
       })
       .catch((error) => {

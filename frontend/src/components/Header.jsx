@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.css"
+import "../styles/Header.css"
 import logo from "./ddulogo.JPG"
 
 function Header() {

@@ -3,14 +3,19 @@ import { Form, Label, Input, FormGroup, Button } from "reactstrap";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 function CreatePost() {
-  const { id, name } = useParams();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const responseData = location.state.responseData;
+  const id = responseData.id;
+  
   
   //home
   const backToHome = () => {
-    window.location.href = `/Home?name=${name}&id=${id}`;
+    navigate('/Home', { state: { responseData: responseData } });
   };
 
   const submitHandler = async (event) => {
@@ -40,7 +45,7 @@ function CreatePost() {
   };
 
   const [postId, setPostId] = useState(null);
-
+  console.log(postId)
   const uploadImages = async (postId, eventImage, qrImage) => {
     const formDataEvent = new FormData();
     formDataEvent.append('postId', postId);

@@ -3,7 +3,7 @@ import Header from "./Header";
 import PublicPost from "./PublicPost";
 import { Button } from 'reactstrap';
 import admin from './Admin.JPG'
-import './allpost.css'
+import '../styles/allpost.css'
 import { useNavigate } from 'react-router-dom';
 
 function Allpost() {

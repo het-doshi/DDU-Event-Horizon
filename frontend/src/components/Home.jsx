@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Post from "./post";
 import Header from "./Header";
-import { useParams } from 'react-router-dom';
-import './home.css'
+import '../styles/home.css'
+
 
 function Home() {
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get('name');
-  const id = params.get('id');
 
 
+  const location = useLocation();
+  const responseData = location.state.responseData;
+  const name = responseData.username;
+  const id = responseData.id;
+ console.log(responseData)
 
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ function Home() {
 
 
   const createpost = () => {
-    navigate(`/CreatePost/${id}/${name}`);
+    navigate('/CreatePost', { state: { responseData: responseData } });
   };
 
 
@@ -57,6 +59,7 @@ function Home() {
           timeStamp={post.timeStamp}
           eventImage={post.eventImage}
           qrImage={post.qrImage}
+          responseData={responseData}
         />
       ))}
       <br />
@@ -65,8 +68,5 @@ function Home() {
   );
 }
 
-const params = new URLSearchParams(window.location.search);
-const username = params.get('name');
-const userid = params.get('id');
-export { Home, username, userid };
+
 export default Home;
