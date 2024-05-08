@@ -26,7 +26,7 @@ To run the project locally, follow these steps:
     https://github.com/het-doshi/FSD-project.git
     ```
 
-2. Navigate to the backend directory and start the Spring Boot application.
+2. Navigate to the blogapi directory and start the Spring Boot application.
    
 3. Navigate to the frontend directory and start the React.js application.
 
