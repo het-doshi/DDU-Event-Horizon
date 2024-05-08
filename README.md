@@ -23,7 +23,7 @@ To run the project locally, follow these steps:
 1. Clone the repository:
 
     ```
-    https://github.com/het-doshi/FSD-project.git
+    https://github.com/het-doshi/DDU-Event-Horizon.git
     ```
 
 2. Navigate to the blogapi directory and start the Spring Boot application.
